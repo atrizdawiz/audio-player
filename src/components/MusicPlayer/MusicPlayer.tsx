@@ -1,6 +1,7 @@
 import styles from "./MusicPlayer.module.css";
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ProgressBar from "./components/ProgressBar/ProgressBar";
+import mp3file from "../../../assets/audio/peace.mp3";
 
 export const formatTime = (seconds: number | null) => {
   if (!seconds) return;
@@ -23,6 +24,7 @@ const MusicPlayer = () => {
   >(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const intervalRef = useRef<any>();
+
   useEffect(() => {
     if (isPlaying) {
       audioRef?.current?.play();
@@ -89,7 +91,7 @@ const MusicPlayer = () => {
           }
         }}
         ref={audioRef}
-        src="/audio/ideas_scales_arp_appr_Guto.mp3"
+        src={mp3file}
       >
         Your browser does not support the
         <code>audio</code> element.

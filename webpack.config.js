@@ -34,11 +34,14 @@ module.exports = {
         ],
       },
       { test: /\.tsx?$/, exclude: /(node_modules)/, loader: "ts-loader" },
+      { test: /\.(mp3|m4a|wav)$/, type: "asset/resource" },
     ],
   },
   output: {
     path: path.resolve(__dirname, "dist/"),
     filename: "bundle.js",
+    assetModuleFilename: "assets/[hash][ext][query]",
+    clean: true,
   },
   devServer: {
     static: { directory: path.join(__dirname, "public/") },
@@ -49,7 +52,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "public/index.html",
       hash: true, // Cache busting
-      filename: "../dist/index.html",
     }),
   ],
 };
