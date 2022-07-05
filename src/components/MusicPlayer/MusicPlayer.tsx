@@ -4,7 +4,7 @@ import ProgressBar from "./components/ProgressBar/ProgressBar";
 import mp3file from "../../../assets/audio/peace.mp3";
 
 export const formatTime = (seconds: number | null) => {
-  if (!seconds) return;
+  if (!seconds || seconds < 1) return "00:00";
 
   const sec = Math.trunc(seconds % 60);
   const min = Math.trunc(seconds / 60);
@@ -18,12 +18,12 @@ export const formatTime = (seconds: number | null) => {
 const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackIndex, setTrackIndex] = useState(0);
-  const [trackProgress, setTrackProgress] = useState(0);
+  const [trackProgress, setTrackProgress] = useState<number | null>(null);
   const [currentTrackDuration, setCurrentTrackDuration] = useState<
     number | null
   >(null);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const intervalRef = useRef<any>();
+  const intervalRef = useRef<any>(null);
 
   useEffect(() => {
     if (isPlaying) {
@@ -59,6 +59,14 @@ const MusicPlayer = () => {
     }
   };
 
+  const onCanPlayHandler = () => {
+    console.log("I can play handler!");
+    if (audioRef.current) {
+      setTrackProgress(audioRef.current.currentTime);
+      setCurrentTrackDuration(audioRef.current.duration);
+    }
+  };
+
   return (
     <figure className={styles.audioPlayer}>
       <button
@@ -74,6 +82,7 @@ const MusicPlayer = () => {
           trackDuration={currentTrackDuration}
           trackProgress={trackProgress}
         />
+
         <div className={styles.timeDisplay}>
           <span className={styles.trackProgress}>
             {formatTime(trackProgress)}
@@ -84,15 +93,7 @@ const MusicPlayer = () => {
           </span>
         </div>
       </div>
-      <audio
-        onCanPlay={() => {
-          if (audioRef?.current?.duration != null) {
-            setCurrentTrackDuration(audioRef.current.duration);
-          }
-        }}
-        ref={audioRef}
-        src={mp3file}
-      >
+      <audio onCanPlay={onCanPlayHandler} ref={audioRef} src={mp3file}>
         Your browser does not support the
         <code>audio</code> element.
       </audio>

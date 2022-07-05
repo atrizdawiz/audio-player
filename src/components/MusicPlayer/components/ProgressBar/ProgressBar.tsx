@@ -2,8 +2,8 @@ import { RefObject, useEffect, useRef, useState } from "react";
 import styles from "./ProgressBar.module.css";
 
 interface Props {
-  setTrackProgress: React.Dispatch<React.SetStateAction<number>>;
-  trackProgress: number;
+  setTrackProgress: React.Dispatch<React.SetStateAction<number | null>>;
+  trackProgress: number | null;
   trackDuration: number | null;
   audioRef: RefObject<HTMLAudioElement>;
 }
@@ -15,7 +15,7 @@ const ProgressBar = ({
   audioRef,
 }: Props) => {
   const resolvePercentage = () => {
-    if (trackDuration) {
+    if (trackDuration && trackProgress) {
       return `${Math.trunc((trackProgress / trackDuration) * 100)}%`;
     } else {
       return "0%";
