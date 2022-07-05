@@ -1,0 +1,10 @@
+.progressBarContainer {
+  border: 1px solid var(--off-white);
+  width: 100%;
+  z-index: 10;
+}
+.progressBar {
+  background-color: pink;
+  height: 10px;
+  z-index: -1;
+}
