@@ -2,18 +2,9 @@ import styles from "./MusicPlayer.module.css";
 import { useEffect, useRef, useState } from "react";
 import ProgressBar from "./components/ProgressBar/ProgressBar";
 import mp3file from "../../../assets/audio/peace.mp3";
-
-export const formatTime = (seconds: number | null) => {
-  if (!seconds || seconds < 1) return "00:00";
-
-  const sec = Math.trunc(seconds % 60);
-  const min = Math.trunc(seconds / 60);
-
-  const fsec: string = sec < 10 ? `0${sec}` : sec.toString();
-  const fmin: string = min < 10 ? `0${min}` : min.toString();
-
-  return `${fmin}:${fsec}`;
-};
+import Playlist from "./components/Playlist/Playlist";
+import fakePlaylist from "./components/Playlist/__fixtures__/fakePlaylist";
+import TimeDisplay from "./components/TimeDisplay/TimeDisplay";
 
 const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -69,30 +60,27 @@ const MusicPlayer = () => {
 
   return (
     <figure className={styles.audioPlayer}>
-      <button
-        className={styles.playPauseButton}
-        onClick={() => setIsPlaying(!isPlaying)}
-      >
-        {isPlaying ? "Pause" : "Play"}
-      </button>
-      <div className={styles.timeData}>
-        <ProgressBar
-          audioRef={audioRef}
-          setTrackProgress={setTrackProgress}
-          trackDuration={currentTrackDuration}
-          trackProgress={trackProgress}
-        />
-
-        <div className={styles.timeDisplay}>
-          <span className={styles.trackProgress}>
-            {formatTime(trackProgress)}
-          </span>
-          <span>/</span>
-          <span className={styles.trackDuration}>
-            {formatTime(currentTrackDuration)}
-          </span>
+      <div className={styles.mainDisplay}>
+        <button
+          className={styles.playPauseButton}
+          onClick={() => setIsPlaying(!isPlaying)}
+        >
+          {isPlaying ? "Pause" : "Play"}
+        </button>
+        <div className={styles.timeData}>
+          <ProgressBar
+            audioRef={audioRef}
+            setTrackProgress={setTrackProgress}
+            trackDuration={currentTrackDuration}
+            trackProgress={trackProgress}
+          />
+          <TimeDisplay
+            currentTrackDuration={currentTrackDuration}
+            trackProgress={trackProgress}
+          />
         </div>
       </div>
+      <Playlist playlist={fakePlaylist} />
       <audio onCanPlay={onCanPlayHandler} ref={audioRef} src={mp3file}>
         Your browser does not support the
         <code>audio</code> element.

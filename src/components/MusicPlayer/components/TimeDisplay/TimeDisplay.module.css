@@ -1,0 +1,12 @@
+.timeDisplay {
+  display: flex;
+  justify-content: space-between;
+}
+
+.trackProgress {
+  color: var(--off-white);
+}
+
+.trackDuration {
+  color: rgb(233, 229, 229);
+}

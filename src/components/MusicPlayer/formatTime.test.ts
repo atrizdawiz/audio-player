@@ -1,4 +1,4 @@
-import { formatTime } from "./MusicPlayer";
+import { formatTime } from "./components/TimeDisplay/TimeDisplay";
 
 describe("hej", () => {
   test("should ...", () => {

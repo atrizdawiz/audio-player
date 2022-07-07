@@ -1,0 +1,10 @@
+.playlist {
+  background-color: grey;
+  margin: 0;
+  list-style: none;
+  padding: 0;
+}
+
+.playlist li {
+  margin-bottom: 3px;
+}

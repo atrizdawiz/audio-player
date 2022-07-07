@@ -1,11 +1,9 @@
 declare namespace MusicPlayerModuleCssNamespace {
   export interface IMusicPlayerModuleCss {
     audioPlayer: string;
+    mainDisplay: string;
     playPauseButton: string;
     timeData: string;
-    timeDisplay: string;
-    trackDuration: string;
-    trackProgress: string;
   }
 }
 
