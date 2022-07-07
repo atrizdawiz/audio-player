@@ -1,9 +1,10 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const webpack = require("webpack");
 
 module.exports = {
-  entry: "./src/index.tsx",
+  entry: { bundle: "./src/index.tsx", "bundle.min": "./src/index.tsx" },
   devtool: "source-map",
   mode: "development",
   resolve: {
@@ -39,7 +40,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "dist/"),
-    filename: "bundle.js",
+    filename: "[name].js",
     assetModuleFilename: "assets/[hash][ext][query]",
     clean: true,
   },
@@ -54,4 +55,12 @@ module.exports = {
       hash: true, // Cache busting
     }),
   ],
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new UglifyJsPlugin({
+        include: /\.min\.js$/,
+      }),
+    ],
+  },
 };
