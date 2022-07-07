@@ -1,3 +1,5 @@
+import mp3file from "../../../../../../assets/audio/peace.mp3";
+
 const fakePlaylist = {
   items: [
     {
@@ -5,49 +7,49 @@ const fakePlaylist = {
       artist: "Pelle",
       year: 1969,
       title: "My song",
-      file: "hejhoj.mp3",
+      file: mp3file,
     },
     {
       id: "2",
       artist: "Palle",
       year: 1969,
       title: "Another song",
-      file: "hejhoj.mp3",
+      file: mp3file,
     },
     {
       id: "3",
       artist: "Valle",
       year: 1969,
       title: "Yet another",
-      file: "hejhoj.mp3",
+      file: mp3file,
     },
     {
       id: "4",
       artist: "Liza feat. Palle",
       year: 1969,
       title: "Also this",
-      file: "hejhoj.mp3",
+      file: mp3file,
     },
     {
       id: "5",
       artist: "Putte",
       year: 1969,
       title: "And this",
-      file: "hejhoj.mp3",
+      file: mp3file,
     },
     {
       id: "6",
       artist: "Skutte",
       year: 1969,
       title: "Hi gang",
-      file: "hejhoj.mp3",
+      file: mp3file,
     },
     {
       id: "7",
       artist: "Frutte",
       year: 1969,
       title: "Rock your pants off",
-      file: "hejhoj.mp3",
+      file: mp3file,
     },
   ],
 };

@@ -1,54 +1,22 @@
 import styles from "./MusicPlayer.module.css";
 import { useEffect, useRef, useState } from "react";
 import ProgressBar from "./components/ProgressBar/ProgressBar";
-import mp3file from "../../../assets/audio/peace.mp3";
 import Playlist from "./components/Playlist/Playlist";
 import fakePlaylist from "./components/Playlist/__fixtures__/fakePlaylist";
 import TimeDisplay from "./components/TimeDisplay/TimeDisplay";
+import useAudio from "./hooks/useAudio";
 
 const MusicPlayer = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [trackIndex, setTrackIndex] = useState(0);
   const [trackProgress, setTrackProgress] = useState<number | null>(null);
   const [currentTrackDuration, setCurrentTrackDuration] = useState<
     number | null
   >(null);
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const intervalRef = useRef<any>(null);
+  const [playlist, setPlaylist] = useState(fakePlaylist);
 
-  useEffect(() => {
-    if (isPlaying) {
-      audioRef?.current?.play();
-      startTimer();
-    } else {
-      clearInterval(intervalRef.current);
-      audioRef?.current?.pause();
-    }
-  }, [isPlaying]);
-
-  useEffect(() => {
-    // Pause and clean up on unmount
-    return () => {
-      audioRef.current?.pause();
-      clearInterval(intervalRef.current);
-    };
-  }, []);
-
-  const startTimer = () => {
-    clearInterval(intervalRef?.current);
-    if (currentTrackDuration && audioRef.current) {
-      intervalRef.current = setInterval(() => {
-        if (audioRef.current?.ended) {
-          setTrackProgress(currentTrackDuration);
-          setIsPlaying(false);
-        } else {
-          if (audioRef?.current?.currentTime) {
-            setTrackProgress(audioRef.current.currentTime);
-          }
-        }
-      }, 1000);
-    }
-  };
+  const { audioRef, isPlaying, setIsPlaying } = useAudio(
+    setTrackProgress,
+    currentTrackDuration
+  );
 
   const onCanPlayHandler = () => {
     console.log("I can play handler!");
@@ -57,6 +25,21 @@ const MusicPlayer = () => {
       setCurrentTrackDuration(audioRef.current.duration);
     }
   };
+
+  useEffect(() => {
+    let playlistResponse;
+    const getPlaylist = async () => {
+      console.log("getting playlist");
+      const playlistPromise = new Promise((resolve, reject) => {
+        setTimeout(() => resolve(fakePlaylist), 5); // ignored
+        setTimeout(() => reject(new Error("…")), 6); // ignored
+      });
+      playlistResponse = (await playlistPromise) as any;
+
+      setPlaylist(playlistResponse);
+    };
+    getPlaylist();
+  }, []);
 
   return (
     <figure className={styles.audioPlayer}>
@@ -81,7 +64,11 @@ const MusicPlayer = () => {
         </div>
       </div>
       <Playlist playlist={fakePlaylist} />
-      <audio onCanPlay={onCanPlayHandler} ref={audioRef} src={mp3file}>
+      <audio
+        onCanPlay={onCanPlayHandler}
+        ref={audioRef}
+        src={playlist.items[2].file}
+      >
         Your browser does not support the
         <code>audio</code> element.
       </audio>

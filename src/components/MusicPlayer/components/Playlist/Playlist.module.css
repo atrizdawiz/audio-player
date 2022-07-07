@@ -2,11 +2,13 @@
   background-color: grey;
   margin: 0;
   list-style: none;
-  padding: 0;
+  padding: 4px;
+  border: 1px solid var(--off-white);
 }
 
 .playlist li {
   margin-bottom: 3px;
+  cursor: default;
 }
 
 .toggle {
@@ -17,7 +19,11 @@
   border-bottom: 1px solid var(--off-white);
   border-right: 1px solid var(--off-white);
   border-radius: 3px;
-
   color: white;
   width: 100%;
+}
+
+.currentTrack {
+  font-weight: bold;
+  text-decoration: underline;
 }
