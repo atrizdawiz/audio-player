@@ -8,3 +8,16 @@
 .playlist li {
   margin-bottom: 3px;
 }
+
+.toggle {
+  background: none;
+  font-size: 9px;
+  border-top: 0;
+  border-left: 1px solid var(--off-white);
+  border-bottom: 1px solid var(--off-white);
+  border-right: 1px solid var(--off-white);
+  border-radius: 3px;
+
+  color: white;
+  width: 100%;
+}

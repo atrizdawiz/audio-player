@@ -1,4 +1,4 @@
-import { formatTime } from "./components/TimeDisplay/TimeDisplay";
+import { formatTime } from "./helpers";
 
 describe("hej", () => {
   test("should ...", () => {

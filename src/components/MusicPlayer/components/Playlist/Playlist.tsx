@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./Playlist.module.css";
 
 interface Playlist {
@@ -13,14 +14,22 @@ interface PlaylistItem {
 }
 
 const Playlist = ({ playlist }: { playlist: Playlist }) => {
+  const [show, setShow] = useState(false);
   return (
-    <ul className={styles.playlist}>
-      {playlist.items.map((item) => (
-        <li>
-          {item.artist} - {item.title} ({item.year})
-        </li>
-      ))}
-    </ul>
+    <>
+      <button className={styles.toggle} onClick={() => setShow(!show)}>
+        {show ? "hide" : "show"} playlist
+      </button>
+      {show && (
+        <ul className={styles.playlist}>
+          {playlist.items.map((item) => (
+            <li>
+              {item.artist} - {item.title} ({item.year})
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
   );
 };
 

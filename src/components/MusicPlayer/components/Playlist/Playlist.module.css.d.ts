@@ -1,6 +1,7 @@
 declare namespace PlaylistModuleCssNamespace {
   export interface IPlaylistModuleCss {
     playlist: string;
+    toggle: string;
   }
 }
 

@@ -1,13 +1,13 @@
 .audioPlayer {
   color: var(--off-white);
   font-family: monospace;
+  width: 250px;
 }
 
 .mainDisplay {
   display: flex;
   align-items: center;
   padding: 10px;
-  width: 250px;
   height: 50px;
   border: 1px solid var(--off-white);
   border-radius: 8px;
