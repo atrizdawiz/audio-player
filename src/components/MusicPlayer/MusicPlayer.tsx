@@ -5,7 +5,6 @@ import Playlist from "./components/Playlist/Playlist";
 import fakePlaylist from "./components/Playlist/__fixtures__/fakePlaylist";
 import TimeDisplay from "./components/TimeDisplay/TimeDisplay";
 import useAudio from "./hooks/useAudio";
-import { getId3Tag } from "./helpers/helpers";
 
 const MusicPlayer = () => {
   const [trackProgress, setTrackProgress] = useState<number | null>(null);
@@ -20,7 +19,6 @@ const MusicPlayer = () => {
   );
 
   const onCanPlayHandler = () => {
-    console.log("I can play handler!");
     if (audioRef.current) {
       setTrackProgress(audioRef.current.currentTime);
       setCurrentTrackDuration(audioRef.current.duration);
@@ -41,12 +39,6 @@ const MusicPlayer = () => {
     };
     getPlaylist();
   }, []);
-
-  useEffect(() => {
-    if (playlist) {
-      getId3Tag(playlist.items[2].file);
-    }
-  }, [playlist]);
 
   return (
     <figure className={styles.audioPlayer}>

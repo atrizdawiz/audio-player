@@ -9,11 +9,3 @@ export const formatTime = (seconds: number | null) => {
 
   return `${fmin}:${fsec}`;
 };
-
-export const getId3Tag = (fileName: string) => {
-  const file = fetch(fileName)
-    .then((stuff) => stuff.arrayBuffer())
-    .then((text) => {
-      // Find id3tag
-    });
-};
