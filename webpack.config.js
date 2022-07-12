@@ -4,8 +4,8 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const webpack = require("webpack");
 
 module.exports = {
-  // entry: { bundle: "./src/index.tsx", "bundle.min": "./src/index.tsx" },
-  entry: "./src/index.tsx",
+  entry: { "bundle.min": "./src/index.tsx" },
+  // entry: "./src/index.tsx",
   devtool: "source-map",
   mode: "development",
   resolve: {
