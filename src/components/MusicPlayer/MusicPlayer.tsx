@@ -28,7 +28,6 @@ const MusicPlayer = () => {
   useEffect(() => {
     let playlistResponse;
     const getPlaylist = async () => {
-      console.log("getting playlist");
       const playlistPromise = new Promise((resolve, reject) => {
         setTimeout(() => resolve(fakePlaylist), 5); // ignored
         setTimeout(() => reject(new Error("…")), 6); // ignored
@@ -62,12 +61,11 @@ const MusicPlayer = () => {
           />
         </div>
       </div>
-      <Playlist playlist={fakePlaylist} />
-      <audio
-        onCanPlay={onCanPlayHandler}
-        ref={audioRef}
-        src={playlist.items[2].file}
-      >
+      <Playlist playlist={fakePlaylist} audioRef={audioRef} />
+      <audio onCanPlay={onCanPlayHandler} ref={audioRef}>
+        {playlist.items.map((item) => (
+          <source id={item.id} src={item.src} type={item.type} key={item.id} />
+        ))}
         Your browser does not support the
         <code>audio</code> element.
       </audio>

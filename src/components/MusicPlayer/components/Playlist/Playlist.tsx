@@ -7,13 +7,19 @@ interface Playlist {
 
 interface PlaylistItem {
   id: string;
-  file: string;
+  src: string;
   title: string;
   artist: string;
   year: number;
 }
 
-const Playlist = ({ playlist }: { playlist: Playlist }) => {
+const Playlist = ({
+  playlist,
+  audioRef,
+}: {
+  playlist: Playlist;
+  audioRef: any;
+}) => {
   const [show, setShow] = useState(false);
   const [trackIndex, setTrackIndex] = useState(0);
   return (
@@ -25,7 +31,11 @@ const Playlist = ({ playlist }: { playlist: Playlist }) => {
         <ul className={styles.playlist}>
           {playlist.items.map((item, index) => (
             <li
-              onClick={() => setTrackIndex(index)}
+              onClick={() => {
+                audioRef.current.src = item.src;
+                audioRef.current.load();
+                setTrackIndex(index);
+              }}
               key={item.id}
               className={index === trackIndex ? styles.currentTrack : ""}
             >
@@ -37,21 +47,5 @@ const Playlist = ({ playlist }: { playlist: Playlist }) => {
     </>
   );
 };
-
-// const PlaylistItem = ({ item }: { item: PlaylistItem }) => {
-//   return (
-//     <li>
-//       {item.artist} - {item.title} ({item.year})
-//       <audio
-//         onCanPlay={onCanPlayHandler}
-//         ref={audioRef}
-//         src={fakePlaylist.items[2].file}
-//       >
-//         Your browser does not support the
-//         <code>audio</code> element.
-//       </audio>
-//     </li>
-//   );
-// };
 
 export default Playlist;

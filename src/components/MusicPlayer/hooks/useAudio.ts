@@ -9,6 +9,20 @@ const useAudio = (
   const intervalRef = useRef<any>(null);
 
   useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.onplay = (e) => {
+        console.log("setting playing true", e);
+        setIsPlaying(true);
+      };
+
+      audioRef.current.onpause = (e) => {
+        console.log("setting playing false", e);
+        setIsPlaying(false);
+      };
+    }
+  }, [audioRef.current]);
+
+  useEffect(() => {
     if (isPlaying) {
       audioRef?.current?.play();
       startTimer();
@@ -16,8 +30,12 @@ const useAudio = (
       clearInterval(intervalRef.current);
       audioRef?.current?.pause();
     }
-    console.log(audioRef);
   }, [isPlaying]);
+
+  useEffect(() => {
+    audioRef?.current?.pause();
+    setIsPlaying(false);
+  }, [audioRef.current?.src]);
 
   useEffect(() => {
     // Pause and clean up on unmount
